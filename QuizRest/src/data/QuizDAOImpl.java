@@ -57,20 +57,52 @@ public class QuizDAOImpl implements QuizDAO {
 
 	@Override
 	public Set<Question> showQuestions(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT q FROM Quiz q JOIN FETCH q.questions WHERE q.id = :id";
+		
+		Quiz quiz = em.createQuery(query, Quiz.class)
+				.setParameter("id", id)
+				.getSingleResult();
+		
+		Set<Question> questions = quiz.getQuestions();
+		
+		return questions;
 	}
+	
 
 	@Override
 	public Question createQuestion(int id, Question q) {
-		// TODO Auto-generated method stub
-		return null;
+		Quiz quiz = em.find(Quiz.class, id);
+		q.setQuiz(quiz);
+		em.persist(q);
+		em.flush();
+		return q;
 	}
-
+	
+	
 	@Override
 	public boolean destroyQuestion(int id, int questid) {
-		// TODO Auto-generated method stub
-		return false;
+		Quiz q = em.find(Quiz.class, id);
+		Question ques = em.find(Question.class, questid);
+		
+		if(em.find(Question.class, questid) == null) {
+			return false;
+		} else {
+			em.remove(ques);
+			return true;
+		}
 	}
+	
+//	@Override
+//	public boolean destroy(int id) {
+//		Quiz q = em.find(Quiz.class, id);
+//		
+//		if(em.find(Quiz.class, id) == null) {
+//			return false;
+//		} else {
+//			em.remove(q);
+//			return true;
+//		}
+//	}
+	
 
 }

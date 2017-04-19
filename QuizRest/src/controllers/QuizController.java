@@ -80,31 +80,32 @@ public class QuizController {
 		return quizDao.destroy(id);
 	}
 	
-	
+	// works
 	@RequestMapping(path = "quizzes/{id}/questions", method = RequestMethod.GET)
 	public Set<Question> indexQuestions(@PathVariable int id) {
 		return quizDao.showQuestions(id);
 	}
 	
-	
+	// works
 	@RequestMapping(path = "quizzes/{id}/questions", method = RequestMethod.POST)
-	public Question createQuestion(@PathVariable int quizId, @RequestBody String jsonQuestion, HttpServletResponse res) {
+	public Question createQuestion(@PathVariable int id, @RequestBody String jsonQuestion, 
+			HttpServletResponse res) {
 		res.setStatus(201);
 		
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			Question updateQuestion = mapper.readValue(jsonQuestion, Question.class);
-			return quizDao.createQuestion(quizId, updateQuestion);
+			return quizDao.createQuestion(id, updateQuestion);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		return null;
 	}
 	
-	
+	// NO WORK *****
 	@RequestMapping(path = "quizzes/{id}/questions/{questId}", method = RequestMethod.DELETE)
-	public boolean destroyQuestion(@PathVariable int quizId, @PathVariable int questId) {
-		return quizDao.destroyQuestion(quizId, questId);
+	public boolean destroyQuestion(@PathVariable int id, @PathVariable int questId) {
+		return quizDao.destroyQuestion(id, questId);
 	}
 	
 }
