@@ -102,7 +102,7 @@ public class QuizController {
 		return null;
 	}
 	
-	// NO WORK *****
+	// works
 	@RequestMapping(path = "quizzes/{id}/questions/{questId}", method = RequestMethod.DELETE)
 	public boolean destroyQuestion(@PathVariable int id, @PathVariable int questId) {
 		return quizDao.destroyQuestion(id, questId);

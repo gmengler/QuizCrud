@@ -24,7 +24,8 @@ public class Question {
 	
 	private String questionText;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="question", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="question", 
+			cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JsonManagedReference
 	private Set<Answer> answers;
 	
