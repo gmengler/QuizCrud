@@ -87,7 +87,7 @@ var buildQuizTable = function(data) {
 
     $deleteButton.click(function(e) {
       e.preventDefault();
-      if (window.confirm("Do you really want to leave?")) {
+      if (window.confirm("Do you really want to delete?")) {
         deleteQuiz(v.id, $(this));
       }
     });
